@@ -19,7 +19,7 @@
 
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-<div class="container"> 
+<div class="container-fluid"> 
     {% if user.is_authenticated %}
       <li>
         <a class="navbar-brand" href="">
@@ -37,7 +37,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-    {% if user.is_authenticated %}
+    {% if request.user.is_staff %}
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
               <a class="nav-link" href="{% url 'home'%}">Dashboard</a>
@@ -53,7 +53,7 @@
                     <!-- <a href="#" onclick="$('#signOutBtn').click()" class="nav-link">Logout</a> -->
                     <div class="dropdown">
                         <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{ user.username }}
+                          Hello, {{ user.username }}
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="#" onclick="$('#signOutBtn').click()" class="nav-link">Logout</a>

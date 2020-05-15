@@ -18,3 +18,12 @@ body{
 #orders-pending{
     background-color: #7CD1C0;
 }
+#dropdownMenuButton{
+    margin-right: 35px;
+}
+#messages{
+    background-color: grey;
+    color: #fff;
+    padding: 10px;
+    margin-top: 10px;
+}
