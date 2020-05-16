@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from . models import *
-from . forms import OrderForm, SignUpForm
+from . forms import OrderForm, SignUpForm, CustomerForm
 from . filters import OrderFilter
 # Create your views here.
 from django.contrib.auth.decorators import login_required 
@@ -22,6 +22,11 @@ def signupuser(request):
             
             group = Group.objects.get(name='customer')
             user.groups.add(group)
+
+            Customer.objects.create(
+                user=user,
+            )
+
             messages.success(request, 'Account created successfully for '+ username)
             return redirect('loginuser')
         else:
@@ -79,11 +84,38 @@ def products(request):
 
     return render(request, 'accounts/products.html',{'products':products})
 
-@login_required(login_url="loginuser")
 
+
+@login_required(login_url="loginuser")
+@allowed_users(allowed_roles=['customer'])
 def userProfile(request):
-    context = {}
+    orders = request.user.customer.order_set.all()
+    print('orders:',orders)
+    total_orders = orders.count()
+    delivered = orders.filter(status = 'Delivered').count()
+    pending = orders.filter(status = 'Pending').count()
+    context = {
+        'orders':orders,
+        'delivered':delivered,
+        'pending':pending,
+        'total_orders':total_orders
+    }
     return render(request,'accounts/user.html', context)
+
+
+@login_required(login_url="loginuser")
+@allowed_users(allowed_roles=['customer'])
+def accountSettings(request):
+    customer = request.user.customer
+    form = CustomerForm(instance=customer)
+    if request.method == 'POST':
+        form = CustomerForm(request.POST, request.FILES, instance=customer)
+        if form.is_valid():
+            form.save()
+    context = {
+        'form':form,
+    }
+    return render(request, 'accounts/account_settings.html',context)
 
 
 @login_required(login_url="loginuser")

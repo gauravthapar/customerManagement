@@ -27,3 +27,9 @@ body{
     padding: 10px;
     margin-top: 10px;
 }
+.profile-pic{
+    max-width: 200px;
+    max-height:200px;
+    margin: 0 auto;
+    border-radius: 50%;
+}
