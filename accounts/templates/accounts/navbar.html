@@ -46,18 +46,18 @@
               <a class="nav-link" href="{% url 'products'%}">Products</a>
             </li>
         </ul>
-    {% else %}
+    {% comment %} {% else %}
        <ul class="navbar-nav mr-auto">  
         <li class="nav-item">
           <a class="nav-link" href="{% url 'account'%}">Settings</a>
         </li>
-      </ul>
+      </ul> {% endcomment %}
     {% endif %}
     <ul class="navbar-nav ml-auto">
             {% if user.is_authenticated %}
             <ul class="navbar-nav mr-auto">  
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'account'%}">Settings</a>
+                <a class="nav-link" href="{% url 'account'%}">Profile</a>
               </li>
             </ul>
                 <li class="nav-item">
@@ -68,7 +68,7 @@
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="#" onclick="$('#signOutBtn').click()" class="nav-link">Logout</a>
-                            <a class="dropdown-item" href="">Change Password</a>
+                            <a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a>
                         </div>
                     </div>
                     <form style='display: none;' method="POST" action="{% url 'logoutuser' %}">

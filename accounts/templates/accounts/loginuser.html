@@ -31,11 +31,12 @@
 				{% endfor %}	
             <hr>
             <div class="text-center">
-                <a href="">Forgot Password?</a>
+                <a href="{% url 'password_reset' %}">Forgot Password?</a>
             </div><br>
             <div class="text-center">
                 Need an account ? <a href="{% url 'signupuser' %}">Sign Up here</a>
             </div>
+            <hr>
         </div>
     </div>
 {% endblock %}
